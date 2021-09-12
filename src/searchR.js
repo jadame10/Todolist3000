@@ -1,0 +1,55 @@
+import { useRecoilState } from "recoil";
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import App from './App';
+import { search as searchAtom } from "./atoms";
+import { index as indexAtom } from "./atoms";
+import { user as viewAtom } from "./atoms";
+
+function SearchR() {
+
+    const [search, setSearch] = useRecoilState(searchAtom);
+    const [index, setIndex] = useRecoilState(indexAtom);
+    const [users, setUsers] = useRecoilState(viewAtom);
+
+    return (
+
+        <div className="App">
+        <header className="App-header">
+        <table>
+            <thead>
+              <tr>
+              <th>Id</th>
+              <th>Text</th>
+              <th>Date</th>
+              <th>Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+                {index.id}
+               </td>
+                <td>
+                {index.title}
+               </td>
+               <td>
+                {index.date}
+               </td>
+               <td>
+                {JSON.stringify(index.completed ? true : false)}
+               </td>
+            </tr>
+            </tbody>
+          </table>
+          <Link className = 'l0' to = '/'>Powrót</Link>
+        </header>
+        <Router>
+            <Switch>
+            <Route exact path="/" component={App}  />
+            </Switch>
+       </Router>
+      </div>
+
+    );
+  }
+  export default SearchR;
